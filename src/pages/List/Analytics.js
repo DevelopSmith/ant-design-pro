@@ -37,7 +37,7 @@ const { Search, TextArea } = Input;
   loading: loading.models.list,
 }))
 @Form.create()
-class BasicList extends PureComponent {
+class Analytics extends PureComponent {
   state = { visible: false, done: false };
 
   formLayout = {
@@ -323,4 +323,4 @@ class BasicList extends PureComponent {
   }
 }
 
-export default BasicList;
+export default Analytics;

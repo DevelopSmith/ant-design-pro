@@ -10,7 +10,7 @@ import pathToRegexp from 'path-to-regexp';
 import Media from 'react-media';
 import { formatMessage } from 'umi/locale';
 import Authorized from '@/utils/Authorized';
-import logo from '../assets/logo.svg';
+import logo from '../assets/header-logo.png';
 import Footer from './Footer';
 import Header from './Header';
 import Context from './MenuContext';
@@ -116,14 +116,14 @@ class BasicLayout extends React.PureComponent {
     const currRouterData = this.matchParamsPath(pathname, breadcrumbNameMap);
 
     if (!currRouterData) {
-      return 'Ant Design Pro';
+      return 'FACEDAB';
     }
     const pageName = formatMessage({
       id: currRouterData.locale || currRouterData.name,
       defaultMessage: currRouterData.name,
     });
 
-    return `${pageName} - Ant Design Pro`;
+    return `${pageName} - FACEDAB`;
   };
 
   getLayoutStyle = () => {
@@ -147,7 +147,7 @@ class BasicLayout extends React.PureComponent {
   renderSettingDrawer = () => {
     // Do not render SettingDrawer in production
     // unless it is deployed in preview.pro.ant.design as demo
-    if (process.env.NODE_ENV === 'production' && APP_TYPE !== 'site') {
+    if (process.env.NODE_ENV === 'production') {
       return null;
     }
     return <SettingDrawer />;
