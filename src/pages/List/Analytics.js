@@ -149,7 +149,7 @@ class Analytics extends PureComponent {
     const extraContent = (
       <div className={styles.extraContent}>
         <RadioGroup defaultValue="all">
-          <RadioButton value="all">全部</RadioButton>
+          <RadioButton value="all">All</RadioButton>
           <RadioButton value="progress">进行中</RadioButton>
           <RadioButton value="waiting">等待中</RadioButton>
         </RadioGroup>
@@ -184,8 +184,8 @@ class Analytics extends PureComponent {
       <Dropdown
         overlay={
           <Menu onClick={({ key }) => editAndDelete(key, props.current)}>
-            <Menu.Item key="edit">编辑</Menu.Item>
-            <Menu.Item key="delete">删除</Menu.Item>
+            <Menu.Item key="edit">Edit</Menu.Item>
+            <Menu.Item key="delete">Delete</Menu.Item>
           </Menu>
         }
       >
