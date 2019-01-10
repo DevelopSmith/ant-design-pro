@@ -126,8 +126,12 @@ export default class GlobalHeaderRight extends PureComponent {
         /> */}
 
         <Button
-          href="http://app.facedab.com/form/advanced-form"
-          style={{ borderRadius: 50, marginRight: 20 }}
+          href="http://app.facedab.com/create-campaign"
+          style={
+            this.props.isMobile
+              ? { borderRadius: 50, fontSize: 12, padding: '0 8px' }
+              : { borderRadius: 50 }
+          }
         >
           <i style={innerCircle} />
           Create Campaign

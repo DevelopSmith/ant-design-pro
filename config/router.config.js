@@ -18,23 +18,29 @@ export default [
     authority: ['admin', 'user'],
     routes: [
       // dashboard
-      { path: '/', redirect: '/analysis' },
+      { path: '/', redirect: '/dashboard' },
       // list
       {
-        path: '/list/basic-list',
+        path: '/dashboard',
         icon: 'dashboard',
-        name: 'Dashboard',
+        name: 'dashboard',
+        component: './Dashboard/Dashboard',
+      },
+      {
+        path: '/campaigns',
+        icon: 'table',
+        name: 'campaigns',
         component: './List/BasicList',
       },
       {
-        path: '/list/basic-list',
+        path: '/create-campaign',
         icon: 'table',
-        name: 'Campaigns',
-        component: './List/BasicList',
+        name: 'create-campaign',
+        component: './Forms/StepForm/Step1',
       },
       {
         path: '/analytics',
-        name: 'Analytics',
+        name: 'analytics',
         icon: 'pie-chart',
         component: './List/Analytics',
       },

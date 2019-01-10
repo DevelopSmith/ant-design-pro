@@ -1,7 +1,10 @@
 export default {
   'menu.home': 'Home',
   'menu.dashboard': 'Dashboard',
-  'menu.dashboard.analysis': 'Analysis',
+  'menu.campaigns': 'Campaigns',
+  'menu.create-campaign': 'Create Campaign',
+  'menu.analytics': 'Analytics',
+
   'menu.dashboard.monitor': 'Monitor',
   'menu.dashboard.workplace': 'Workplace',
   'menu.form': 'Form',

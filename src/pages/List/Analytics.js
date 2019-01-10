@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Suspense } from 'react';
 import { findDOMNode } from 'react-dom';
 import moment from 'moment';
 import { connect } from 'dva';
@@ -23,6 +23,8 @@ import {
 
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import Result from '@/components/Result';
+import { getTimeDistance } from '@/utils/utils';
+const SalesCard = React.lazy(() => import('../Dashboard/SalesCard'));
 
 import styles from './BasicList.less';
 
@@ -32,13 +34,18 @@ const RadioGroup = Radio.Group;
 const SelectOption = Select.Option;
 const { Search, TextArea } = Input;
 
-@connect(({ list, loading }) => ({
+@connect(({ list, chart, loading }) => ({
+  chart,
   list,
   loading: loading.models.list,
 }))
 @Form.create()
 class Analytics extends PureComponent {
-  state = { visible: false, done: false };
+  state = {
+    rangePickerValue: getTimeDistance('year'),
+    visible: false,
+    done: false,
+  };
 
   formLayout = {
     labelCol: { span: 7 },
@@ -111,8 +118,59 @@ class Analytics extends PureComponent {
     });
   };
 
+  handleChangeSalesType = e => {
+    this.setState({
+      salesType: e.target.value,
+    });
+  };
+
+  handleTabChange = key => {
+    this.setState({
+      currentTabKey: key,
+    });
+  };
+
+  handleRangePickerChange = rangePickerValue => {
+    const { dispatch } = this.props;
+    this.setState({
+      rangePickerValue,
+    });
+
+    dispatch({
+      type: 'chart/fetchSalesData',
+    });
+  };
+
+  selectDate = type => {
+    const { dispatch } = this.props;
+    this.setState({
+      rangePickerValue: getTimeDistance(type),
+    });
+
+    dispatch({
+      type: 'chart/fetchSalesData',
+    });
+  };
+
+  isActive = type => {
+    const { rangePickerValue } = this.state;
+    const value = getTimeDistance(type);
+    if (!rangePickerValue[0] || !rangePickerValue[1]) {
+      return '';
+    }
+    if (
+      rangePickerValue[0].isSame(value[0], 'day') &&
+      rangePickerValue[1].isSame(value[1], 'day')
+    ) {
+      return styles.currentDate;
+    }
+    return '';
+  };
+
   render() {
+    const { rangePickerValue, salesType, currentTabKey } = this.state;
     const {
+      chart = {},
       list: { list },
       loading,
     } = this.props;
@@ -120,6 +178,17 @@ class Analytics extends PureComponent {
       form: { getFieldDecorator },
     } = this.props;
     const { visible, done, current = {} } = this.state;
+    const {
+      visitData,
+      visitData2,
+      salesData,
+      searchData,
+      offlineData,
+      offlineChartData,
+      salesTypeData,
+      salesTypeDataOnline,
+      salesTypeDataOffline,
+    } = chart;
 
     const editAndDelete = (key, currentItem) => {
       if (key === 'edit') this.showEditModal(currentItem);
@@ -252,9 +321,21 @@ class Analytics extends PureComponent {
         </Form>
       );
     };
+
     return (
       <PageHeaderWrapper>
         <div className={styles.standardList}>
+          <Suspense fallback={null}>
+            <SalesCard
+              rangePickerValue={rangePickerValue}
+              salesData={salesData}
+              isActive={this.isActive}
+              handleRangePickerChange={this.handleRangePickerChange}
+              loading={loading}
+              selectDate={this.selectDate}
+            />
+          </Suspense>
+
           <Card
             className={styles.listCard}
             bordered={false}

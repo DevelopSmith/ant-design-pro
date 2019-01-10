@@ -11,6 +11,7 @@ import Media from 'react-media';
 import { formatMessage } from 'umi/locale';
 import Authorized from '@/utils/Authorized';
 import logo from '../assets/header-logo.png';
+import squareLogo from '../assets/footer-icon.png';
 import Footer from './Footer';
 import Header from './Header';
 import Context from './MenuContext';
@@ -190,7 +191,7 @@ class BasicLayout extends React.PureComponent {
           <Header
             menuData={menuData}
             handleMenuCollapse={this.handleMenuCollapse}
-            logo={logo}
+            logo={squareLogo}
             isMobile={isMobile}
             {...this.props}
           />
@@ -214,7 +215,7 @@ class BasicLayout extends React.PureComponent {
             )}
           </ContainerQuery>
         </DocumentTitle>
-        <Suspense fallback={<PageLoading />}>{this.renderSettingDrawer()}</Suspense>
+        {/* <Suspense fallback={<PageLoading />}>{this.renderSettingDrawer()}</Suspense> */}
       </React.Fragment>
     );
   }
