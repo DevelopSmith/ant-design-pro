@@ -99,6 +99,11 @@
     "puppeteer": "^1.10.0"
   },
   "lint-staged": {
+    "**/*.{js,ts,tsx,json,jsx,less}": [
+      "node ./scripts/lint-prettier.js",
+      "git add"
+    ],
+    "**/*.less": "stylelint --syntax less"
   },
   "engines": {
     "node": ">=8.0.0"
